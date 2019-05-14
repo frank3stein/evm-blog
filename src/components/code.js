@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import Highlight, { defaultProps } from 'prism-react-renderer'
+import Theme from 'prism-react-renderer/themes/nightOwl'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 
 export const Code = ({ codeString, language, ...props }) => {
@@ -14,7 +15,12 @@ export const Code = ({ codeString, language, ...props }) => {
     )
   } else {
     return (
-      <Highlight {...defaultProps} code={codeString} language={language}>
+      <Highlight
+        {...defaultProps}
+        code={codeString}
+        language={language}
+        theme={Theme}
+      >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={style}>
             {tokens.map((line, i) => (

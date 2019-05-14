@@ -1,0 +1,45 @@
+---
+title: Scope && Closure
+date: '2019-03-16'
+---
+
+import ImgZoom from '../../components/img-zoom.js'
+
+Let us talk about scope first.
+Scope is a mechanism in computer science to abstract level of detail and localize it. What does this mean exactly ?
+
+```js
+console.log('Hello!')
+function creatingScope(x, y) {
+  console.log(y)
+  return x
+}
+```
+
+Think of a google maps. If we think of zoom as a scope,
+
+<!-- <img src='./scope.jpg' alt='Scope'/> -->
+
+![Scope](./scope.jpg)
+
+<ImgZoom src="./scope.jpg" alt="Scope" />
+
+this is our global scope.
+
+![Global](./global.png)
+
+When we are running our javascript in the browser, it is running at the global scope. At that level there can be countries
+
+If you search on google maps for Turkey, the result will zoom in from the global view to where you can see Turkey as whole. It does not show you other countries, just Turkey.
+
+![Turkey](./turkey.png)
+
+Additionally you will see that you can also see the names of the cities. Only the big ones. The map shows you the information that it thinks is relevant.
+
+Lets zoom in to the map, for example to Istanbul. Suddenly we start to see the names of the neighbourhoods, aveneues etc. The map already has information about all these places when you first searched for Turkey, but they are not relevant. Seeing all this information would pollute the view and will make it harder for you to locate what you are searching for.
+
+![Global](./global.png)
+
+Here is an image from google maps. When you zoom out the maximum amount, it only shows the country names. This is exactly how the javascript global scope works, done. Thanks for reading.
+
+I am kidding, we barely started. If we think of the zoom of the map as scope, each zoom has its own scope. At the global scope, we see only the countries.
