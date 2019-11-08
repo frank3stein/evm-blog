@@ -5,7 +5,15 @@ const ImgZoom = (src, alt) => {
   useEffect(() => {
     mediumZoom('img')
   }, [])
-  return <img src={src} alt={alt} />
+  return (
+    <img
+      src={src}
+      alt={alt}
+      onClick={e => {
+        return false
+      }}
+    />
+  )
 }
 
 export default ImgZoom

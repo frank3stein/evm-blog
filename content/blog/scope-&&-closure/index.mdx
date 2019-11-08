@@ -3,26 +3,33 @@ title: Scope && Closure
 date: '2019-03-16'
 ---
 
-import ImgZoom from '../../components/img-zoom.js'
-
 Let us talk about scope first.
-Scope is a mechanism in computer science to abstract level of detail and localize it. What does this mean exactly ?
+Scope is a mechanism in computer science to hide level of detail and localize it. What does this mean exactly ? Let's look at an example.
 
 ```js
-console.log('Hello!')
-function creatingScope(x, y) {
-  console.log(y)
-  return x
+const firstName = 'Emil' // variable declaration
+const lastName = 'Martinov' // variable declaration
+function myFullName(firstName, lastName) {
+  // function declaration and the parameters, firstName and lastName
+  return firstName + lastName // returning the arguments !!
 }
+console.log(myFullName()) //logging the return of myFullName
+```
+
+When I first saw code like this the first time, it was very confusing for me, seeing firstName here, firstName there and the last line. I did not understand seperation of all these same named values.
+
+From mathematics background I could guess that functions is a placeholder for instructions, that values firstName, lastName are placeholders for what we might put into that function so that the function follows the recipe inside.
+
+Let's take a look at what happens at that code snippet. We define our variables firstName and lastName. Then we declare our function `myFullName`. Inside the paranthesis `()`, we are creating placeholders `firstName` and `lastName`, these placeholders only exist inside our function. Think of the function declaration as a cooking recipe, and the placeholders, parameters in programming language, are our ingredients. After we tell the function its instruction `return firstName + lastName`, we are done with our recipe so we close `}` the curly bracket. Now we just finished writing the recipe, but we have not done anything with it. So at this time it is just a piece of paper with some instructions.
+
+```js
+myFullName('Emil', 'Martinov') // here we use the function
+// it will return 'EmilMartinov'
 ```
 
 Think of a google maps. If we think of zoom as a scope,
 
-<!-- <img src='./scope.jpg' alt='Scope'/> -->
-
 ![Scope](./scope.jpg)
-
-<ImgZoom src="./scope.jpg" alt="Scope" />
 
 this is our global scope.
 
