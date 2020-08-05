@@ -12,10 +12,10 @@ class BlogPostTemplate extends React.Component {
     const post = this.props.data.mdx
     const siteTitle = this.props.data.site.siteMetadata.title
     const { previous, next } = this.props.pageContext
-    const disqusConfig = {
-      url: `${this.props.data.site.siteMetadata.siteUrl + location.pathname}`,
+    let disqusConfig = {
+      url: `${this.props.data.site.siteMetadata.siteUrl + this.props.pageContext.slug}`,
       identifier: post.id,
-      title: post.title,
+      title: post.frontmatter.title,
     }
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -78,6 +78,7 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         author
+        siteUrl
       }
     }
     mdx(fields: { slug: { eq: $slug } }) {

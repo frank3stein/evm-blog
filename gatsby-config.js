@@ -89,8 +89,8 @@ module.exports = {
                   url: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   custom_elements: [{ 'content:encoded': edge.node.code.boy }],
-                })
-              })
+                });
+              });
             },
 
             /* if you want to filter for only published posts, you can do
@@ -181,4 +181,4 @@ module.exports = {
       },
     },
   ],
-}
+};

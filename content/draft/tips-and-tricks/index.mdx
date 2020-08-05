@@ -1,0 +1,5 @@
+visibility: invisible vs display: none
+
+Invisible as in the name of it, it is still there, covers up the space nad it is rendered, but you can not see it.opacity: 0 can give you the same effect but it does not trigger layout.visibility: hidden has the additional benefit of not capturing javascript events, whereas opacity: 0; captures events.
+
+Display none on the hand completely removes it from the dom.

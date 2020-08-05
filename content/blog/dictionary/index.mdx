@@ -1,0 +1,124 @@
+---
+title: Dictionary
+date: '2019-12-09'
+---
+
+<h2>Introduction</h2>
+This is a post that will continue to grow. I will add sections to it as I am writing other posts. Eventually I want to create a Dictionary to share with everyone. I love javascript and am curious about how it works. Hopefully this curiousity can help you too. 
+
+
+<h2>Right Hand vs Left Hand</h2>
+
+<h2>Stack and Heap</h2>
+
+Stack: Last in, first out. Think of pancakes, you start to eat from the warmest one. If you wanted to eat from the first one think of how the process of cooking pancakes and serving them would be complicated. Things on the stack must be of fixed size.
+
+When you call a function it is pushed to the stack with its variables, and when it is over it is popped off.The values(arguments) you provide to the function are provided to the function with pointers to the heap which are also stored in the stack.
+
+Heap: on the other hand is less organized. The size may not be fixed. Operating system allocates some space (not exact) on the heap and returns a pointer.
+
+<h2>Expression vs Statement</h2>
+
+Statements perform an action but do not return a value ( you can not assign them to a variable), whereas expressions at runtime are values. So their result is a value. For example if statements do not necessarily turn into a value, at runtime the engine can run the if statement and do nothing. But with expressions the engine always gets a value, and either returns it or assigns it. 
+
+<h2>Ternary Operator</h2>
+`if` in javascript is a statement, it is called `if statement`. It allows us to control the flow. Ternary operator on the other hand is an expression, it allows us to get a value based on a condition. So it is guaranteed to return a right hand side value. There are some places where you can only use expressions, like in string literals. This is commonly used in React components to conditionally apply one class or the other to a component. 
+
+```js
+function isAdult(age) {
+  if (age > 18) {
+    return 'can';
+  } else {
+    return "can't";
+  }
+}
+console.log(`The user ${isAdult(32)} drive`);
+console.log(`The user ${
+    if (32 > 18) {
+        return 'can';
+    } else {
+        return "can't";
+    }
+  } drive`)
+```
+
+The second console log will throw, as you can see from syntax highlighting, the a statement inside a template literal is not valid syntax. Javascript does not know what do with it. You can return from a function but not an if statement. So if controls the flow, but it can not return a value.
+
+We can also use ternary operator to return an expression;
+
+`condition ? if the condition is true output this : if not output this`
+
+So we are asking ? to check the condition and we give it to possible outcomes, first for the true case : then for the false.
+
+```js
+const age = 32;
+console.log(`The user ${age > 18 ? 'can' : "can't"} drive.`);
+```
+
+Instead of writing a function with an if statement then returning the function, we can easily write it in one line and return the value.
+
+Remember we are asking ? if the condition is true or false, then we provide a return value for true : or if not we provide value for false. True comes first as we care about truth more.
+
+![The truth is out there](./truth-is-out-there.jpg)
+
+<h2>String Literal and String Template Literal</h2>
+
+**String literal** is any value that is inside `''` or `""`. In Javascript you can use them both, this allows you to write strings where `"Emil's blog"` is valid. You could also write it as `'Emil\\'s blog'`. **`\\`** is known as the **escape character**. By using it you are telling javascript, do not treat it as you would usually do. So in `'Emil\\'s blog'`, if we did not use the escape character as soon as the second is `'` is encountered, `'Emil's blog'`, javascript closes the string. This will cause our program to throw an error, as the `s blog` now is invalid javascript syntax as it is outside the string literal. Afterwards there is another `'`, which is not closed. So all the code following an unclose `'` will be treated as a string. 
+
+Rule of thumb is string literals come in matching `''` or `""`. **In strings, a beginning must always have an end**.
+
+In order to add a variable in between
+
+```js
+const name = 'Emil'
+console.log(name + '\'s blog'')
+```
+
+You must combine the strings together by using string concatination. It is a computer science term for combining two different variables of the same type `(arrays, strings)`.
+
+<h4>String Template Literal</h4>
+
+Operations with String Literals are very unintuitive. There are a lot of pieces you need to keep in mind. And is error prone. **String template literals** make the string literals more readable and reasonable. Here is how we would do the same thing.
+
+```js
+const name = 'Emil';
+console.log(`${name}'s blog`);
+```
+
+By just reading it you can guess what it is doing. \` the backtick opens and closes the string template literal and inside we can use javascript expressions. Think of string template literals as the superset of template literals, they can do everything a string literal can do and more.
+
+```js
+const a = 5;
+const b = 10;
+console.log(`a plus b is ${a + b}.`); // a plus b is 15.
+console.log('a plus b is ' + a + b + '.'); // a plus b is 510.
+console.log('a plus b is ' + (a + b) + '.'); // a plus b is 15.
+```
+
+Above is another pain point of string literals. Coercion is javascript engine's attempt to turn your code into a runnable executable. So when you try to concatinate a string with a number, Javacript does not throw an error, but tries to guess what we are trying to do. So it assumes we want to add the number value into the string.
+
+```js
+console.log('1' + 34); // '134'
+```
+
+So when we do addition with a string with a number with another addition with a number
+
+```js
+console.log('a plus b is ' + a + b + '.');
+```
+
+From left to right it just adds the numbers into the string as string values.
+
+String template literals on the other hand are explicit about what will return exactly.
+
+```js
+console.log(`a plus b is ${a + b}.`);
+```
+
+Above we know only after a + b operation is done and returns a value we are going to include it in the string.
+
+In order to perform the number addition operation first we can use braces.
+
+```js
+console.log('a plus b is ' + (a + b) + '.'); // a plus b is 15.
+```

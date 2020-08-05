@@ -1,8 +1,8 @@
-import React from 'react'
-import { render } from 'react-dom'
-import Highlight, { defaultProps } from 'prism-react-renderer'
-import Theme from 'prism-react-renderer/themes/nightOwl'
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
+import React from 'react';
+import Highlight, { defaultProps } from 'prism-react-renderer';
+import Theme from 'prism-react-renderer/themes/nightOwl';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 
 export const Code = ({ codeString, language, ...props }) => {
   if (props['react-live']) {
@@ -12,7 +12,7 @@ export const Code = ({ codeString, language, ...props }) => {
         <LiveError />
         <LivePreview />
       </LiveProvider>
-    )
+    );
   } else {
     return (
       <Highlight
@@ -33,6 +33,6 @@ export const Code = ({ codeString, language, ...props }) => {
           </pre>
         )}
       </Highlight>
-    )
+    );
   }
-}
+};

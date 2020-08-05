@@ -1,4 +1,134 @@
 ---
-title: var, let and const
+title: 'var, let and const --- (bonus: hoisting)'
 date: '2019-11-10'
 ---
+
+In short:
+
+- _var_ creates a variable in its scope. Since Javascript does not have block level scope, variable lives in its scope and the variables in any scope can be accessed . At runtime, Javascript engine hoists variable declarations and initializes them to undefined. Only after the assignment line is reached, then it assigns it to the value.
+
+- _let_ creates a variable in block scope `{}`. Variables declared inside `{}` can not escape the block scope. They are stuck there from the time they are assigned until the bracket closes `}`. let declarations are hoisted, but they are not initialized like var to undefined. So if you try to use them before they are assigned, you are going to get a reference error. Your code won't run, it will throw an error.
+
+- _const_ creates a variable in block scope `{}`, just like let. The only difference from let is, it can not be reassigned. But not as you would expect. If const is assigned to a primitive value, it can not be reassigned, it is immutable, Javascript engine will not let you change that value. But if you assign a data structure to it, like `[array]` or `{object}`. You can change the contents of that object. The reason for this is simple and elegant, the data structures are dynamic, so their size is not predetermined. The Javascript engine makes no assumption of how large or small an array or object can be. That is why, the reference to that object is immutable but the object itself is not.
+
+---
+
+For example, consider you have two users with exact same name and the surname.
+
+```js
+const user1 = {
+  name: 'Emil',
+  lastName: 'Martinov',
+};
+
+const user2 = {
+  name: 'Emil',
+  lastName: 'Martinov',
+};
+```
+
+Javascript only allocates one place for primitive values in the memory. Every word in the English language can be constructed by combining the letters of the alphabet. So the engine just has to keep the letters in memory and it can easily create any word by combining the adresses of these letters in specific order. For each unique word it has to do it only once, and once it saves it in the memory, it can retrive it whenever it wants from that address. So the value of 'Emil' in the memory is a combination of ordered characters E, m, i and l. Both of `user1.name` and `user2.name` points to the same location in memory. Even if you had created thousand variables with the value 'Emil', each will point to same location in the memory and each one of them will be equal to another. In this sense, for primitive values
+
+These is not true for the objects. In javascript objects and arrays are dynamic, they can change shape, can get bigger or smaller. So the engine has no way of knowing how much memory an object needs. So it can not make any assumptions. Instead it creates a new space for each object, even if they look exactly the same, with the same values. JS engine does not know if or when they will change.
+
+```js
+user1 === user2; //false
+user1.name === user2.name; // true
+```
+
+---
+
+**A little deep dive to why here**. In Javascript, data structures like objects and arrays are dynamic. Fancy way of saying, you can change them. This comes at the cost of speed compared to languages where you need to predefine size and the shape of the structure.
+
+Imagine you are a librarian that you only had one bookshelf, and each time someone brought back a book, the book could get as big as the shelf itself or just be as small as the paper. When the books get bigger you could cut them to small pieces to fit it back in the bookshelf, and put them back each time someone requests it, but that will take a lot of time. To fit the books on the shelf, you would need to reshuffle them, whcih will take less time but much more time then when the books' size is set. They will never change, so you know exactly where to put them and they will stay there. This makes your job much faster.
+
+On the other hand, with primitive values, you only need to keep the building blocks in memory. So for any number imaginable (ok memory has its limits, but let us think it does not), you only have to have numbers from 0 to 9. You can create the rest from the combinations of them. For example 12312481241249012. Once you save this number in memory, you can use that exact same number that sits in the same memory place.
+
+**Inside code block // is followed by {value of the line}**
+
+```js
+const couch = {
+  name: 'couch',
+  size: 1,
+};
+let myFirstCouch = couch;
+couch.size = 2;
+console.log(myFirstCouch.size); // 2
+console.log(myFirstCouch === couch); // true
+
+const notMyCouch = {
+  /* identical values with myFirstCouch */
+  name: 'couch',
+  size: 1,
+};
+console.log(myFirstCouch === notMyCouch); // false
+
+/*Primitive values*/
+const bigNumber = 12312481241249012;
+const sameBigNumber = 12312481241249012;
+bigNumber = 1; // this will be a type error."Uncaught TypeError: Assignment to constant variable." You will need to remove this line so the code runs
+let anotherCopyOfBigNumber = 12312481241249012;
+
+console.log(bigNumber === anotherCopyOfBigNumber); // true
+console.log(bigNumber === sameBigNumber); // true
+```
+
+---
+
+Let us look at some code.
+
+```js
+console.log(avariableWhichIsNotDefined); // It will throw. "Uncaught ReferenceError: avariableWhichIsNotDefined is not defined". Careful here it says is not defined, not undefined. Those have different meaning.
+printMyName('Emil'); // Emil
+console.log(name); // undefined.
+
+/*variable declaration name assigned to primitive value 'Emil'*/
+var name = 'Emil';
+name = 'Kevin';
+console.log(name, surname); // Kevin undefined
+var surname = 'Martinov';
+console.log(name, surname); // Kevin Martinov
+/*function declaration printMyName*/
+function printMyName(name) {
+  console.log(name);
+}
+```
+
+This is the code we had written and now we will run it. (see next code block to see how javascript engine runs it.)
+
+First, Javascript engine hoists variable and function declarations (`printMyName` is a function declaration) at first run, and it initializes variable declarations with `undefined`. Initializing means that the engine assigns them to undefined, for example `var name = undefined`.
+
+Function declarations are hoisted as a whole. So even if they are defined at the bottom of the file, you can call them at the first line of your code. After this first run is finished, Javascript engine starts to run the code as business as usual, go line by line and execute. Take a look at how the code is after the first run;
+
+```js
+var name = undefined; //hoisted and initialised with undefined assignment
+var surname = undefined; //hoisted and initialised with undefined assignment
+function printMyName(name) {
+  console.log(name);
+}
+/*Hoisting finishes*/
+printMyName('Emil'); // Emil
+console.log(name); // undefined
+name = 'Emil';
+name = 'Kevin';
+console.log(name, surname); // Kevin undefined
+```
+
+Congratualtions ! Now you know how hoisting works for variables and functions. If you assign a function declaration to a variable, function declaration becomes an expression, and it is treated as any other value. The variable declaration is hoisted and assigned to undefined and only after comes to where it is assigned, then it can be used.
+
+If scope can be thought as a room and hoisting as baloons rising to the top of the room, !! Root from the ceiling to down. Every branch has access to the root.
+
+So you might think, why do we even use var, if the engine itself is doing this process why extra effort. It gets a bit tricky when you introduce scope into this equation. And remember, Javascript does not have block `{}` scope but it has function scope. What ever inside a function has no acces to other, but the function scope itself.
+
+```js
+var name = 'Emil';
+function getUserName(name) {
+  function lowerCaseUserName(name) {}
+}
+```
+
+The web was designed to share documents between people. The main content for it is the text. So for the web the priority is getting the text content to the other person.
+
+Javascript was designed for the web. In that sense it is very forgiving of its writers, it wants to run the page and show the content. Think of it as a flag carrier who won't drop the flag, although he was shot numerously. It won't quit its duty no matter what. That is why it is so forgiving.
+
+When you
