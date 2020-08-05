@@ -21,7 +21,7 @@ class BlogPostTemplate extends React.Component {
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title={post.frontmatter.title} description={post.excerpt} />
         <h1>{post.frontmatter.title}</h1>
-        <CommentCount config={disqusConfig} placeholder={'...'} />
+        {/* <CommentCount config={disqusConfig} placeholder={'...'} /> */}
         <p
           style={{
             ...scale(-1 / 5),
