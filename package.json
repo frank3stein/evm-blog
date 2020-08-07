@@ -46,6 +46,7 @@
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.20.5",
+    "gatsby-remark-reading-time": "^1.1.0",
     "gh-pages": "^2.2.0",
     "prettier": "^1.19.1"
   },
