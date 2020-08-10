@@ -1,0 +1,142 @@
+---
+title: Pass by value vs Pass by Reference
+date: '2020-08-08'
+---
+
+Everything in Javascript is an object except the primitive values. Primitive values are passed by copy and objects by reference. 
+
+## Primitive Types:
+
+- String
+- Number
+- BigInt
+- Boolean
+- Symbol
+
+The primitives above have object equivelants that wrap around the value and those objects have valueOf() method that returns the value.
+
+- undefined
+- null
+
+null and undefined primitive values do not have object equivelants, but null is a typeof Object as a bug. For backwards compatibility it has remained as an object. 
+
+These types are the building blocks of the language, so they are very easy store and are stored directly by their value. Think of them as post it notes, you can write any information on them quickly, they are quickly accessible and when you are done, you can discard them. 
+
+### Pass by value (Primitive Types)
+
+```js
+let name = "Liam";
+let name2 = "Liam";
+```
+
+Primitive values are cheap and easy to deal with, whenever you assign a primitive value to a variable, javascript engine knows exactly how much memory is needed and allocates the needed amount.
+
+In this way, when `name` changes, `name2` remains the same. They refer to different places in memory. 
+
+```js
+// afer you reassign name, its old value is garbage collected
+name = "Emil";
+name // Emil
+name2 // Liam
+
+function nameChanger (name2){
+    name2 = "Matilda";
+    return name2;
+}
+
+name2 // Liam
+nameChanger(name2) // Matilda
+name2 // Liam 
+```
+
+The nameChanger function takes in a copy of the name2 variable, Liam, and then inside in its own scope, it has its own name variable that has the value of Liam. Let us see step by step
+
+```js
+nameChanger("Liam")
+// step by step what is happening
+function nameChanger (name2){
+    // name === "Liam" 
+    name2 = "Matilda"; // "Liam" value garbage collected, 
+    // name2 in this scope is "Matilda"
+    return name2;
+}
+```
+
+
+---
+
+## Objects (Functions, Arrays, Objects)
+Objects on the other hand act differently as they are treated differently by the engine. Object, Arrays, Functions are complex structures. You can edit them, expand them, delete properties on them. 
+
+```js
+let user = {
+    name: "Emil",
+    age:23,
+    admin: false
+}
+
+user.name = "Liam"
+
+console.log(user)
+{
+    name: "Liam",
+    age:23,
+    admin: false
+}
+```
+
+A new object is not created but the object is modified.
+
+### Pass by reference
+
+When dealing with complex data, instead of copying the whole data (data objects could be gigabytes), language engines usually pass a reference to the memory address of the object. 
+
+Think of primitive values being a name on a post-it, and objects being a house. You do not want to move and copy the house each time someone asks, you want to give them the address. Javascript engines passes the reference to the object.
+
+```js
+const mate0 = {
+    name: "Liam",
+    age: 20,
+    occupation: "student"
+}
+const mate1 = {
+    name: "Emil",
+    age: 25,
+    occupation: "Developer"
+}
+const house = {
+    price: 1_000_000,
+    bedrooms: 3,
+    sqm: 140,
+    housemates:[]
+}
+function addToHouse(array, house){
+    house.housemates = house.housemates.concat(array)
+}
+
+addToHouse([mate0, mate1], house)
+console.log(house);
+mate1.occupation = "bartender";
+console.log(mate1)
+//{name: "Liam", age: 20, occupation: "bartender"}
+
+
+console.log("after change: ", house)
+// {price: 1000000, bedrooms: 3, sqm: 140, housemates: Array(2)}
+// housemates: Array(2)
+// 0: {name: "Liam", age: 20, occupation: "bartender"}
+// 1: {name: "Emil", age: 25, occupation: "Developer"}
+
+house.housemates[1].name = 'Jack';
+console.log(mate1) // Jack
+```
+
+After we run the addToHouse, with our house object and array of housemates, we mutated (programming term for change) the actual house object and added the housemates. 
+
+Afterwards when we mutated mate0's occupation, the change was also reflected and when we mutated housemates[1].name through the house object, we changed mate2's name to Jack.
+
+So the objects in global scope and inside house.housemates array, both refer to the same memory locations. You can change them from both references. This might not always be desired, so you need to be careful. 
+
+That is why libraries like loadash have utilitiy functions for deep copying. 
+
+If we use object assign to copy the house object, it will create a shallow copy and we will still not have the desirable effect. 

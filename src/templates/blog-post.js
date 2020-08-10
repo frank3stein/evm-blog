@@ -21,7 +21,6 @@ class BlogPostTemplate extends React.Component {
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title={post.frontmatter.title} description={post.excerpt} />
         <h1>{post.frontmatter.title}</h1>
-        <CommentCount config={disqusConfig} placeholder={'...'} />
         <p
           style={{
             ...scale(-1 / 5),
@@ -31,6 +30,8 @@ class BlogPostTemplate extends React.Component {
           }}
         >
           {post.frontmatter.date}
+          <br />
+          <CommentCount config={disqusConfig} placeholder={'No comments'} />
         </p>
         <MDXRenderer>{post.code.body}</MDXRenderer>
         <hr
