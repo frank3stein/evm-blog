@@ -1,0 +1,48 @@
+---
+title: Parameters vs Arguments
+date: '2020-08-11'
+---
+
+Functions have to states, a definition and invocation state. 
+
+In the definition state, the engine reads the function definition and assigns it to a variable for a later call. 
+
+In invocation state, we call the function and let it do its work. Unless the function is called, inside `{}` of the function is not executed. So while reading it, you can ignore it completely, till you come to the line of code where it is executed. Only then the recipe of the function, its definition, becomes relavent. 
+
+
+```js
+function declaration(name){ // the function is declared
+    return `The ${name} just ran.`;
+}
+console.log(declaration(`test function`))// the function is called
+```
+
+In the above example, while the function is declared, the input name is refered to as **parameter**. 
+
+When the declaration function is ran inside console.log function, `test function` is called an `argument`.
+
+The difference is slight but important. We as developers work in teams and we must communicate our intent to our collagues, and in order to do that effectively, we must be able to communicate in detail. 
+
+
+For example compare these 2 sentences,
+
+- `The function has 2 parameters, name and age `
+
+- `The function has 2 arguments, name and age `
+
+
+Without any other context, since we know parameters are in definition phase we know that the **first case** is something like this
+
+```js
+function someFunction(name, age){
+    //..... some function
+}
+```
+
+and the **second case** is 
+
+```js
+someFunction(name, age)
+```
+
+The why of arguments and parameters is for effective communication. This becomes even more valuable when we are seeking help and asking a technical question, in Stackoverflow, Google or creating an issue on Github.

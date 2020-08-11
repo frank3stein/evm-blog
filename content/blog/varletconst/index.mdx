@@ -2,14 +2,15 @@
 title: 'var, let and const --- (bonus: hoisting)'
 date: '2019-11-10'
 ---
+import {Link} from "gatsby";
 
 In short:
 
-- _var_ creates a variable in its scope. Since Javascript does not have block level scope, variable lives in its scope and the variables in any scope can be accessed . At runtime, Javascript engine hoists variable declarations and initializes them to undefined. Only after the assignment line is reached, then it assigns it to the value.
+- **var** creates a variable in its scope. Since Javascript does not have block level scope, variable lives in its scope and the variables in any scope can be accessed . At runtime, Javascript engine hoists variable declarations and initializes them to undefined. Only after the assignment line is reached, then it assigns it to the value.
 
-- _let_ creates a variable in block scope `{}`. Variables declared inside `{}` can not escape the block scope. They are stuck there from the time they are assigned until the bracket closes `}`. let declarations are hoisted, but they are not initialized like var to undefined. So if you try to use them before they are assigned, you are going to get a reference error. Your code won't run, it will throw an error.
+- **let** creates a variable in block scope `{}`. Variables declared inside `{}` can not escape the block scope. They are stuck there from the time they are assigned until the bracket closes `}`. let declarations are hoisted, but they are not initialized like var to undefined. So if you try to use them before they are assigned, you are going to get a reference error. Your code won't run, it will throw an error.
 
-- _const_ creates a variable in block scope `{}`, just like let. The only difference from let is, it can not be reassigned. But not as you would expect. If const is assigned to a primitive value, it can not be reassigned, it is immutable, Javascript engine will not let you change that value. But if you assign a data structure to it, like `[array]` or `{object}`. You can change the contents of that object. The reason for this is simple and elegant, the data structures are dynamic, so their size is not predetermined. The Javascript engine makes no assumption of how large or small an array or object can be. That is why, the reference to that object is immutable but the object itself is not.
+- **const** creates a variable in block scope `{}`, just like let. The only difference from let is, it can not be reassigned. But not as you would expect. If const is assigned to a primitive value, it can not be reassigned, it is immutable, Javascript engine will not let you change that value. But if you assign a data structure to it, like `[array]` or `{object}`. You can change the contents of that object. The reason for this is simple and elegant, the data structures are dynamic, so their size is not predetermined. The Javascript engine makes no assumption of how large or small an array or object can be. That is why, the reference to that object is immutable but the object itself is not.
 
 ---
 
@@ -27,7 +28,7 @@ const user2 = {
 };
 ```
 
-Javascript only allocates one place for primitive values in the memory. Every word in the English language can be constructed by combining the letters of the alphabet. So the engine just has to keep the letters in memory and it can easily create any word by combining the adresses of these letters in specific order. For each unique word it has to do it only once, and once it saves it in the memory, it can retrive it whenever it wants from that address. So the value of 'Emil' in the memory is a combination of ordered characters E, m, i and l. Both of `user1.name` and `user2.name` points to the same location in memory. Even if you had created thousand variables with the value 'Emil', each will point to same location in the memory and each one of them will be equal to another. In this sense, for primitive values
+Since <Link to="/value-vs-reference">primite values</Link> are 
 
 These is not true for the objects. In javascript objects and arrays are dynamic, they can change shape, can get bigger or smaller. So the engine has no way of knowing how much memory an object needs. So it can not make any assumptions. Instead it creates a new space for each object, even if they look exactly the same, with the same values. JS engine does not know if or when they will change.
 

@@ -3,6 +3,7 @@ title: Scope && Closure
 date: '2019-03-16'
 ---
 
+
 Let us talk about scope first.
 Scope is a mechanism in computer science to hide level of detail and localize it. What does this mean exactly ?
 
@@ -14,7 +15,7 @@ This is our global scope.
 
 ![Global](./global.png)
 
-When we are running our javascript in the browser, it is running at the global scope. At the global level, only information relatvent to the globe is visible, country names, ocean names etc. The map does not try to view every street name at the global zoom level, it is irrelevant and if it did try to that it would be unusuable. Think about it, there won't be enough space for the text.
+When we are running our javascript in the browser, it is running at the global scope. At the global level, only information relatvent to the globe is visible, country names, ocean names etc. The map does not try to view every street name at the global zoom level, it is irrelevant and if it did try to that it would be unusuable. Think about it, there won't be enough space for all the text, streetnames etc.
 
 If you search on google maps for Turkey, the result will zoom in from the global view to where you can see Turkey as whole. It does not show you other countries, just Turkey.
 
@@ -26,7 +27,7 @@ Additionally you will see that you can also see the names of the cities. Only th
 
 Lets zoom in to the map, for example to Istanbul. Suddenly we start to see the names of the neighbourhoods, aveneues etc. The map already has information about all these places when you first searched for Turkey, but they are not relevant. Seeing all this information would pollute the view and will make it harder for you to locate what you are searching for.
 
-The zoom (scope) of the map also provides us with a context. If we are searching for a streetname in Istanbul, Turkey, we do not want to search the rest of the globe. This prevents us to find the streets that have the same name in different cities in Turkey.
+The zoom (scope) of the map also provides us with a **context**. If we are searching for a streetname in Istanbul, Turkey, we do not want to search the rest of the globe. This prevents us to find the streets that have the same name in different cities in Turkey.
 
 ```js
 // Global scope here
@@ -38,9 +39,11 @@ function imf() {
 }
 
 function Turkey() {
+  // local scope of Turkey
   var name = 'Turkiye';
   var nationalFootballTeam = 'Milli Futbol Takimi';
   function Istanbul() {
+    // local scope of City
     var name = 'Istanbul';
     return name;
   }
@@ -74,10 +77,21 @@ This will return
 'Amsterdam';
 'Global';
 ```
+In the above example, we are seeing name variables everywhere. When I first started coding, this was extremely confusing for me. 
 
-Here is an image from google maps. When you zoom out the maximum amount, it only shows the country names. This is exactly how the javascript global scope works, done. Thanks for reading.
+**What you need to know**
+When you invoke a function (remember! if you do not call the function, it is just definition for the javascript engine), the variables inside the `{}` and the arguments provided to the `function(...arguments)` live within the function. This is the function scope, and when javascript is looking for a variable inside the function call, it will first look at this scope and only after it fails to find the variable will go one scope up, and repeat till it finds the varible/function. 
 
-I am kidding, we barely started. If we think of the zoom of the map as scope, each zoom has its own scope. At the global scope, we see only the countries.
+The **scope** when looking for variables/functions **always zooms out** and looks to the enclosing scope, till it goes all the way to the global scope. It never zooms in. Let us imagine, you are at a city zoom level and you are searching for a specific name. By this method you only check the city scope, then the country scope and then the global scope. 
+
+On the other hand, if you would zoom in, you would have to check each city scope, inside each city, each street scope as well. That is a lot of work and it does not make the work predictable. Basically, each search becomes searching the whole code base. As programmers we want to be lazy and smart, not hard working. 
+
+---
+### More details for beginners
+
+
+Let us see where the arguments fit the scope. You can skip this part if you already know that they are inside the function rather than the scope the function is defined in.
+
 
 ```js
 var firstName = 'Emil'; // variable declaration

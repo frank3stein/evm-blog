@@ -1,0 +1,51 @@
+---
+title: String Template Literal
+date: '2020-08-11'
+---
+
+<h4>String Template Literal</h4>
+
+Operations with String Literals are very unintuitive. There are a lot of pieces you need to keep in mind. And is error prone. **String template literals** make the string literals more readable and reasonable. Here is how we would do the same thing.
+
+```js
+const name = 'Emil';
+console.log(`${name}'s blog`);
+```
+
+By just reading it you can guess what it is doing. \` the backtick opens and closes the string template literal and inside we can use javascript expressions. Think of string template literals as the superset of template literals, they can do everything a string literal can do and more.
+
+```js
+const a = 5;
+const b = 10;
+console.log(`a plus b is ${a + b}.`); // a plus b is 15.
+console.log('a plus b is ' + a + b + '.'); // a plus b is 510.
+console.log('a plus b is ' + (a + b) + '.'); // a plus b is 15.
+```
+
+Above is another pain point of string literals. Coercion is javascript engine's attempt to turn your code into a runnable executable. So when you try to concatinate a string with a number, Javacript does not throw an error, but tries to guess what we are trying to do. So it assumes we want to add the number value into the string.
+
+```js
+console.log('1' + 34); // '134'
+```
+
+So when we do addition with a string with a number with another addition with a number
+
+```js
+console.log('a plus b is ' + a + b + '.');
+```
+
+From left to right it just adds the numbers into the string as string values.
+
+String template literals on the other hand are explicit about what will return exactly.
+
+```js
+console.log(`a plus b is ${a + b}.`);
+```
+
+Above we know only after a + b operation is done and returns a value we are going to include it in the string.
+
+In order to perform the number addition operation first we can use braces.
+
+```js
+console.log('a plus b is ' + (a + b) + '.'); // a plus b is 15.
+```

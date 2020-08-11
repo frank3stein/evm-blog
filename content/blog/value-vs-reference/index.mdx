@@ -91,7 +91,7 @@ A new object is not created but the object is modified.
 
 When dealing with complex data, instead of copying the whole data (data objects could be gigabytes), language engines usually pass a reference to the memory address of the object. 
 
-Think of primitive values being a name on a post-it, and objects being a house. You do not want to move and copy the house each time someone asks, you want to give them the address. Javascript engines passes the reference to the object.
+Think of primitive values being a name on a post-it, and objects being a house. You do not want to move and copy the house each time someone asks, you want to give them the address. Javascript engines passes the reference to the object, it writes the address on a post-it, instead of creating the whole building again.
 
 ```js
 const mate0 = {
