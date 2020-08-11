@@ -1,0 +1,44 @@
+---
+title: Ternary Operator
+date: '2020-08-11'
+---
+
+<h2>Ternary Operator</h2>
+`if` in javascript is a statement, it is called `if statement`. It allows us to control the flow. Ternary operator on the other hand is an expression, it allows us to get a value based on a condition. So it is guaranteed to return a right hand side value. There are some places where you can only use expressions, like in string literals. This is commonly used in React components to conditionally apply one class or the other to a component. 
+
+```js
+function isAdult(age) {
+  if (age > 18) {
+    return 'can';
+  } else {
+    return "can't";
+  }
+}
+console.log(`The user ${isAdult(32)} drive`);
+console.log(`The user ${
+    if (32 > 18) {
+        return 'can';
+    } else {
+        return "can't";
+    }
+  } drive`)
+```
+
+The second console log will throw, as you can see from syntax highlighting, the a statement inside a template literal is not valid syntax. Javascript does not know what do with it. You can return from a function but not an if statement. So if controls the flow, but it can not return a value.
+
+We can also use ternary operator to return an expression;
+
+`condition ? if the condition is true output this : if not output this`
+
+So we are asking ? to check the condition and we give it to possible outcomes, first for the true case : then for the false.
+
+```js
+const age = 32;
+console.log(`The user ${age > 18 ? 'can' : "can't"} drive.`);
+```
+
+Instead of writing a function with an if statement then returning the function, we can easily write it in one line and return the value.
+
+Remember we are asking ? if the condition is true or false, then we provide a return value for true : or if not we provide value for false. True comes first as we care about truth more.
+
+![The truth is out there](./truth-is-out-there.jpg)

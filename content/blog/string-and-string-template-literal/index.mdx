@@ -1,7 +1,23 @@
 ---
-title: String Template Literal
+title: String Literal and String Template Literal
 date: '2020-08-11'
 ---
+
+<h4>String Literal</h4>
+
+**String literal** is any value that is inside `''` or `""`. In Javascript you can use them both, this allows you to write strings where `"Emil's blog"` is valid. You could also write it as `'Emil\\'s blog'`. **`\\`** is known as the **escape character**. By using it you are telling javascript, do not treat it as you would usually do. So in `'Emil\\'s blog'`, if we did not use the escape character as soon as the second is `'` is encountered, `'Emil's blog'`, javascript closes the string. This will cause our program to throw an error, as the `s blog` now is invalid javascript syntax as it is outside the string literal. Afterwards there is another `'`, which is not closed. So all the code following an unclose `'` will be treated as a string. 
+
+Rule of thumb is string literals come in matching `''` or `""`. **In strings, a beginning must always have an end**.
+
+In order to add a variable in between
+
+```js
+const name = 'Emil'
+console.log(name + '\'s blog'')
+```
+
+You must combine the strings together by using string concatination. It is a computer science term for combining two different variables of the same type `(arrays, strings)`.
+
 
 <h4>String Template Literal</h4>
 
