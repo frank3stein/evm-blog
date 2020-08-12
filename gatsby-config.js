@@ -66,6 +66,7 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: `${process.env.EVM_BLOG_GOOGLE_TRACKING_ID}`,
+        head: true
       },
     },
     {
