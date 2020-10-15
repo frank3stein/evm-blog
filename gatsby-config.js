@@ -178,7 +178,7 @@ module.exports = {
         // right after importing the prism color scheme:
         //  `require("prismjs/plugins/line-numbers/prism-line-numbers.css");`
         // Defaults to false.
-        showLineNumbers: true,
+        showLineNumbers: false,
         // If setting this to true, the parser won't handle and highlight inline
         // code used in markdown i.e. single backtick code like `this`.
         noInlineHighlight: false,
